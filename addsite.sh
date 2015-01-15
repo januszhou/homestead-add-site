@@ -97,14 +97,21 @@ if [ ${siteFolder:(-7)}  == "/public" ]
 	then
 		sFolder=${siteFolder:0:$endLength}
 		affix="/public"
+
+		vSiteFolderLength=${#vSiteFolder}
+		vEndLength=$[$vSiteFolderLength-7]
+		vSiteFolderShort=${vSiteFolder:0:$vEndLength}
 fi
 
-awk -v from="folders:.*$" -v to="folders:\n    - map: $sFolder\n      to: $vSiteFolder" '{gsub(from,to,$0); print $0}' $file > ${file}.new
+awk -v from="folders:.*$" -v to="folders:\n    - map: $sFolder\n      to: $vSiteFolderShort" '{gsub(from,to,$0); print $0}' $file > ${file}.new
 awk -v from="sites:.*$" -v to="sites:\n    - map: $siteName\n      to: $vSiteFolder" '{gsub(from,to,$0); print $0}' ${file}.new > ${file}.new2
 
 echo "Removing temp files ..."
 rm -f ${file}.new
 mv ${file}.new2 $file
+
+echo "Restarting your Homestead VM..."
+homestead halt && homestead up
 
 echo "All done! Thank you!"
 echo
