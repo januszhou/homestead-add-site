@@ -4,11 +4,13 @@ echo "Simple way to add nginx sites to Homestead"
 echo "Use: addsite <project name> <folder path> <vagrant ip> <vagrant path>"
 echo
 
+################ UPDATE HERE ###########################
 vagrantIp="192.168.10.10" # change it if you set different vagrant box ip address
-baseVagrantPath="/home/vagrant/Code/" # mapped vagrant box folder path
-baseProjectPath="/Users/zhou/public_html/" # local folder path
+baseVagrantPath="/home/vagrant/Code" # mapped vagrant box folder path
+baseProjectPath="/Users/zhou/public_html" # local folder path
 baseHomesteadFolder="/Users/zhou/.homestead" # homestead yaml file path
 homesteadPath="/Users/zhou/public_html/Homestead" # homestead vagrant file path, where you usually run vagrant up & halt
+################ UPDATE HERE ###########################
 
 function lowercase {
 	lowercased=`echo $1 | tr '[A-Z]' '[a-z]'`
@@ -35,8 +37,8 @@ if [ -z "$2" ]
 		answer="$2"
 fi
 
-vSiteFolder="$baseVagrantPath$answer/"
-siteFolder="$baseProjectPath$answer/"
+vSiteFolder="$baseVagrantPath/$answer/"
+siteFolder="$baseProjectPath/$answer/"
 
 echo "Editing hosts file (You might be asked to provide your user's password for host machine)..."
 # edit hosts file
@@ -56,15 +58,15 @@ siteFolderLength=${#siteFolder}
 endLength=$[$siteFolderLength-7]
 sFolder="$siteFolder"
 
-if [ ${siteFolder:(-7)}  == "/public" ]
-	then
-		sFolder=${siteFolder:0:$endLength}
-		affix="/public"
+# if [ ${siteFolder:(-7)}  == "/public" ]
+# 	then
+# 		sFolder=${siteFolder:0:$endLength}
+# 		affix="/public"
 
-		vSiteFolderLength=${#vSiteFolder}
-		vEndLength=$[$vSiteFolderLength-7]
-		vSiteFolderShort=${vSiteFolder:0:$vEndLength}
-fi
+# 		vSiteFolderLength=${#vSiteFolder}
+# 		vEndLength=$[$vSiteFolderLength-7]
+# 		vSiteFolderShort=${vSiteFolder:0:$vEndLength}
+# fi
 
 cd "$baseHomesteadFolder"
 
