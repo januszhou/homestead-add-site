@@ -34,7 +34,8 @@ homesteadPath="/Users/zhou/public_html/Homestead" # homestead vagrant file path,
 ./addsite.sh homestead.app homestead/public # locate to your index.php file
 ```
 
-Based on config above, the script process as below:
+Based on config above, the script process as below
+
 1. Add `192.168.10.10 homestead.app` to /etc/hosts
 2. Add `map: /map: homestead.app to: /home/vagrant/Code/homestead/public/` to `Homestead.yaml` file located at `"/Users/zhou/.homestead"`
 3. Cd to `/Users/zhou/public_html/Homestead`, and run `vagrant reload --provision`
